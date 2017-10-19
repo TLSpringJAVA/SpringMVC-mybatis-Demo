@@ -111,7 +111,16 @@
     <url-pattern>*.map</url-pattern>
   </servlet-mapping>
 
-
+<!--防止xss攻击的过滤器-->
+  <filter>
+    <filter-name>ScriptXssFilter</filter-name>
+    <filter-class>com.anlu.core.filter.ScriptXssFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ScriptXssFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
 
 
   <!--使用Spring MVC,配置DispatcherServlet是第一步。DispatcherServlet是一个Servlet,,所以可以配置多个DispatcherServlet-->
