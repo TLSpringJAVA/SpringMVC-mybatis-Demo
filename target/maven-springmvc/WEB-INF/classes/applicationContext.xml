@@ -82,7 +82,7 @@
     </bean>
     <!-- 配置mybatis mapper接口，扫描所有dao -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.example.dao"/>
+        <property name="basePackage" value="com.anlu.springmvc.*"/>
         <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
     </bean>
 
@@ -102,7 +102,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.example.service..*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.anlu.*.service..*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 
