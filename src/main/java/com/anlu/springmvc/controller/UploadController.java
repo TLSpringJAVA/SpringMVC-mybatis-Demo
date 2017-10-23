@@ -1,5 +1,6 @@
 package com.anlu.springmvc.controller;
 
+import com.anlu.springmvc.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,7 +58,15 @@ public class UploadController {
         return "home/uploadfile";
     }
 
-
+    /**
+     * 用普通属性值的方式上传图片
+     * @param request
+     * @param model
+     * @param description
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/springUpload",method = RequestMethod.POST)
     public String springUpload(HttpServletRequest request,
                                Model model,
@@ -92,6 +101,38 @@ public class UploadController {
             return "error";
         }
 
-
     }
+
+    @RequestMapping(value="/uploadObj")
+    public String uploadObj(HttpServletRequest request,
+                           @ModelAttribute User user,
+                           Model model)throws Exception{
+        System.out.println(user.getUsername());
+        // 如果文件不为空，写入上传路径
+        if(!user.getImage().isEmpty()){
+            String path = "/Users/anlu/Developer/img/";
+            String originalFilename = user.getImage().getOriginalFilename();
+
+            String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+
+
+            File filepath = new File(path,newFileName);
+            //判断路径是否存在
+            if(!filepath.getParentFile().exists()){
+                filepath.getParentFile().mkdirs();
+            }
+            //将文件上传到一个目标文件夹中
+            File newFile = new File(path+newFileName);
+            //将内存中的数据写入磁盘
+            user.getImage().transferTo(newFile);
+            user.setImgUrl(newFileName);
+            //将item添加到model
+            model.addAttribute("item","图片上传成功了");
+            model.addAttribute("user",user);
+            return "home/uploadfile";
+        }else{
+            return "error";
+        }
+    }
+
 }

@@ -12,24 +12,9 @@
 </head>
 <body>
 
-<div style="padding: 20px">
-    <form action="/upload/uploadpic" enctype="multipart/form-data" method="post" mu>
-    <table>
-        <tr>
-            <td>商品图片</td>
-            <td>
-                <c:if test="${items.pic !=null}">
-                    <img src="/pic/${items.pic}" width=100 height=100/>
-                    <br/>
-                </c:if>
-                <input type="file"  name="items_pic"/>
-            </td>
-        </tr>
-    </table>
-    </form>
-</div>
 
-<h1>使用springMVC上传图片</h1>
+
+<h1>用最简单方式->使用springMVC上传图片</h1>
 
 <form action="/upload/springUpload" enctype="multipart/form-data" method="post">
     文件描述:
@@ -47,6 +32,29 @@
     <img src="/pic/${picurl}" width=200 height=200/>
     <br/>
 </c:if>
+
+<h2>用对象的方式上传图片</h2>
+<h2>用户注册</h2>
+<form action="/upload/uploadObj" enctype="multipart/form-data" method="post">
+    <table>
+        <tr>
+            <td>用户名:</td>
+            <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+            <td>请上传头像:</td>
+            <td><input type="file" name="image"></td>
+            <c:if test="${picurl !=null}">
+                <img src="/pic/${picurl}" width=200 height=200/>
+                <br/>
+            </c:if>
+        </tr>
+        <tr>
+            <td><input type="submit" value="注册"></td>
+        </tr>
+    </table>
+</form>
+
 
 </body>
 </html>
